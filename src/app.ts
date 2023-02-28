@@ -2,8 +2,8 @@ import express, { NextFunction, Request, Response } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import { thingsRouter } from './routers/things.router.js';
-import createDebug from 'debug';
 import { CustomError } from './interfaces/interfaces.js';
+import createDebug from 'debug';
 
 const debug = createDebug('w6:app');
 
@@ -18,30 +18,16 @@ app.use(express.json());
 app.use(cors(corsOptions));
 app.use(express.static('public'));
 
-app.use((_req, _resp, next) => {
-  debug('Soy un middleware');
-  next();
-});
-
 app.use('/things', thingsRouter);
 
 app.get('/', (_req, resp) => {
   resp.json({
-    info: '/Esta es una prueba',
+    info: 'Work in progress',
     endpoints: {
       things: '/things',
     },
   });
 });
-app.get('/:id', (req, resp) => {
-  resp.send('Hola ' + req.params.id);
-});
-app.post('/', (req, resp) => {
-  req.body.id = 12;
-  resp.send(req.body);
-});
-app.patch('/:id');
-app.delete('/:id');
 
 app.use(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
