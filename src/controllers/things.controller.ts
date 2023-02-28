@@ -6,11 +6,13 @@ const debug = createDebug('w6:app');
 export class ThingsController {
   // eslint-disable-next-line no-useless-constructor, no-unused-vars
   constructor(public repo: Repo<Thing>) {
+    this.repo = repo;
     debug('Instantiate');
   }
 
   async getAll(_req: Request, resp: Response, next: NextFunction) {
     try {
+      debug('getAll method');
       const data = await this.repo.query();
       resp.json({
         results: data,
@@ -22,7 +24,7 @@ export class ThingsController {
 
   async get(req: Request, resp: Response, next: NextFunction) {
     try {
-      debug('get');
+      debug('get method');
       const data = await this.repo.queryId(req.params.id);
       resp.json({
         results: [data],
@@ -34,8 +36,9 @@ export class ThingsController {
 
   async post(req: Request, resp: Response, next: NextFunction) {
     try {
-      debug('post');
-      const data = await this.repo.create(req.body);
+      debug('post method');
+      const newData = req.body;
+      const data = await this.repo.create(newData);
       resp.json({
         results: [data],
       });
@@ -46,7 +49,7 @@ export class ThingsController {
 
   async patch(req: Request, resp: Response, next: NextFunction) {
     try {
-      debug('patch');
+      debug('patch method');
       req.body.id = req.params.id ? req.params.id : req.body.id;
       const data = await this.repo.update(req.body);
       resp.json({
@@ -59,7 +62,7 @@ export class ThingsController {
 
   async delete(req: Request, resp: Response, next: NextFunction) {
     try {
-      debug('Delete');
+      debug('Delete method');
       this.repo.destroy(req.params.id);
       resp.json({
         results: [],
