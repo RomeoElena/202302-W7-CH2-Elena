@@ -1,4 +1,4 @@
-import { Response, Request, NextFunction } from 'express';
+import { Response, Request } from 'express';
 import { ThingsMongooseRepo } from '../repository/things.mongoose.repo';
 import { ThingsController } from './things.controller';
 
