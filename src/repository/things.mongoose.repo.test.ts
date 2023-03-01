@@ -25,7 +25,7 @@ describe('When the queryId method is used', () => {
   });
 
   test('Then if it has an object with NO valid ID, it should throw an Error', async () => {
-    expect(async () => repo.queryId('2')).rejects.toThrow();
+    expect(async () => repo.queryId('3')).rejects.toThrow();
   });
 });
 
@@ -51,7 +51,7 @@ describe('When we use destroy', () => {
     (ThingModel.findByIdAndDelete as jest.Mock).mockResolvedValue(
       '[{  "id"  }]'
     );
-    expect(async () => repo.destroy('1')).rejects.toThrow();
+    expect(async () => repo.destroy('2')).rejects.toThrow();
     expect(ThingModel.findByIdAndDelete).toHaveBeenCalled();
   });
 });
